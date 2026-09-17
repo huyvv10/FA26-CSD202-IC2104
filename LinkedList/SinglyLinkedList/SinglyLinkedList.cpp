@@ -123,6 +123,73 @@ class SinglyLinkedList {
 			return cur;
 		}
 		
+		//Delete the element at the begining of the list
+		void removeFirst(){
+			if (isEmpty()) return;
+			if (head->next==nullptr){
+				Node *tmp=head;
+				head=tail=nullptr; 
+				delete tmp; return;
+			}
+			Node *tmp=head;
+			head=head->next;
+			delete tmp;
+		}
+
+		//Delete the element at the last of the list
+		void removeLast(){
+			if (isEmpty()) return;
+			if (head->next==nullptr){
+				Node *tmp=head;
+				head=tail=nullptr; 
+				delete tmp; return;
+			}	
+			Node *cur=head;
+			while (cur->next!=tail){
+				cur=cur->next;
+			}
+			Node *tmp=tail;
+			cur->next=nullptr;
+			tail=cur;
+			delete tmp;					
+		}
+
+		//Delete the element at the position pos
+		void removeAtPos(int pos){
+			int n=countNodes();
+			if (n==0 || pos<0 || pos>=n) return;
+			if (pos==0){removeFirst(); return;}
+			if (pos==n-1){removeLast(); return;}
+			int i=0;
+			Node *cur=head;
+			while (i+1!=pos){
+				i++;
+				cur=cur->next;
+			}
+			Node *tmp=cur->next;
+			cur->next=cur->next->next; //cur->next=tmp->next;
+			delete tmp;
+		}
+		
+		//Delete all elements with value as x
+		void removeAll(int x){
+			if (isEmpty()) return;
+			while (head!=nullptr && head->data==x){
+				removeFirst();
+			}
+			while (head!=nullptr && tail->data==x){
+				removeLast();
+			}
+			Node *cur=head;
+			while (cur!=nullptr && cur->next!=nullptr){
+				if (cur->next->data==x){
+					Node *tmp=cur->next;
+					cur->next=tmp->next;
+					delete tmp;
+				} else
+					cur=cur->next;
+			}
+		}
 		void display() {
 			Node *cur=head;
 			while (cur!=nullptr) {
@@ -142,6 +209,14 @@ void menu() {
 	cout<<"5. Add at pos"<<endl;
 	cout<<"6. Get max"<<endl;
 	cout<<"7. Get min"<<endl;
+	cout<<"8. Get at pos"<<endl;
+	cout<<"9. Remove first"<<endl;
+	cout<<"10. Remove last"<<endl;
+	cout<<"11. Remove at a specific position"<<endl;
+	cout<<"12. Remove all"<<endl;
+	cout<<"13. Sort in ascending order"<<endl;
+	cout<<"14. Sort in descending order"<<endl;
+	cout<<"15. Sort in the range [x,y]"<<endl;
 	cout<<"0. Quit"<<endl;
 	cout<<"Your selection: ";
 }
@@ -149,13 +224,17 @@ void menu() {
 int main() {
 	SinglyLinkedList myList;
 	myList.addFirst(2);
-	myList.addFirst(6);
-	myList.addFirst(9);
-	myList.addFirst(7);
-	myList.display();
-	myList.addLast(3);
-	myList.addLast(5);
-	myList.addLast(9);
+	myList.addFirst(2);
+	myList.addFirst(2);
+	myList.addFirst(2);
+	myList.addFirst(2);
+//	myList.addFirst(6);
+//	myList.addFirst(9);
+//	myList.addFirst(7);
+//	myList.display();
+//	myList.addLast(3);
+//	myList.addLast(5);
+//	myList.addLast(9);
 	myList.display();
 	int x, pos, sel;
 	do {
@@ -192,7 +271,34 @@ int main() {
 				cout<<"The minimum value in the list: "<<myList.getMin()<<endl;
 				break;
 			case 8:
+				cout<<"Get node at pos"<<endl;
+				cout<<"Input position to get: "; cin>>pos;
+				Node *p;
+				p = myList.getNodeAtPos(pos);
+				if (p!=nullptr)
+					cout<<"The value at position "<<pos<<" is:"<<p->data<<endl;
+				else
+					cout<<"The list is empty or position is out of range."<<endl;
 				break;
+			case 9:
+				cout<<"Remove first"<<endl;
+				myList.removeFirst(); 
+				myList.display(); break;
+			case 10:
+				cout<<"Remove last"<<endl;
+				myList.removeLast(); 
+				myList.display(); break;
+			case 11:
+				cout<<"Remove at pos"<<endl;
+				cout<<"Input position to delete: "; cin>>pos;
+				myList.removeAtPos(pos);
+				myList.display();
+				break;
+			case 12:
+				cout<<"Remove all"<<endl;
+				cout<<"Input value to remove: "; cin>>x;
+				myList.removeAll(x);
+				myList.display(); break;
 			case 0:
 				cout<<"Bye bye"<<endl; break;
 			default:
