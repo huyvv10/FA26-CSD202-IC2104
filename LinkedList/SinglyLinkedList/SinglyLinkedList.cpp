@@ -190,6 +190,48 @@ class SinglyLinkedList {
 					cur=cur->next;
 			}
 		}
+		
+		//Sort the list in ascending order
+		void sortAsc(){
+			Node *cur=head;
+			while (cur->next!=nullptr){
+				Node *p=cur->next;
+				while (p!=nullptr){
+					if (cur->data>p->data){
+						int tmp=cur->data;
+						cur->data=p->data;
+						p->data=tmp;
+					}
+					p=p->next;
+				}
+				cur=cur->next;
+			}
+		}
+		
+		//Sort the list in descending order
+		void sortDesc(){
+			Node *cur=head;
+			while (cur->next!=nullptr){
+				Node *p=cur->next;
+				while (p!=nullptr){
+					if (cur->data<p->data){
+						int tmp=cur->data;
+						cur->data=p->data;
+						p->data=tmp;
+					}
+					p=p->next;
+				}
+				cur=cur->next;
+			}			
+		}
+		
+		//Sort the list in the range [pos1, pos2] in ascending order
+		//Sort from The [first Max, second Min]
+		void sortInRangeAsc(int pos1, int pos2){
+			
+		}
+		
+		
 		void display() {
 			Node *cur=head;
 			while (cur!=nullptr) {
@@ -224,17 +266,13 @@ void menu() {
 int main() {
 	SinglyLinkedList myList;
 	myList.addFirst(2);
-	myList.addFirst(2);
-	myList.addFirst(2);
-	myList.addFirst(2);
-	myList.addFirst(2);
-//	myList.addFirst(6);
-//	myList.addFirst(9);
-//	myList.addFirst(7);
-//	myList.display();
-//	myList.addLast(3);
-//	myList.addLast(5);
-//	myList.addLast(9);
+	myList.addFirst(6);
+	myList.addFirst(9);
+	myList.addFirst(7);
+	myList.display();
+	myList.addLast(3);
+	myList.addLast(5);
+	myList.addLast(9);
 	myList.display();
 	int x, pos, sel;
 	do {
@@ -298,6 +336,14 @@ int main() {
 				cout<<"Remove all"<<endl;
 				cout<<"Input value to remove: "; cin>>x;
 				myList.removeAll(x);
+				myList.display(); break;
+			case 13:
+				cout<<"Sort in ascending order"<<endl;
+				myList.sortAsc();
+				myList.display(); break;
+			case 14:
+				cout<<"Sort in descending order"<<endl;
+				myList.sortDesc();
 				myList.display(); break;
 			case 0:
 				cout<<"Bye bye"<<endl; break;
