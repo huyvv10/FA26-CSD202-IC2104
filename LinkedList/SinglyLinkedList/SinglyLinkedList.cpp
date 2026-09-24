@@ -228,7 +228,27 @@ class SinglyLinkedList {
 		//Sort the list in the range [pos1, pos2] in ascending order
 		//Sort from The [first Max, second Min]
 		void sortInRangeAsc(int pos1, int pos2){
-			
+			int i=0, j;			
+			Node *cur=head;
+			while (cur!=nullptr && i!=pos1){
+				i++;
+				cur=cur->next;
+			}			
+			while (cur->next!=nullptr && i<pos2){
+				Node *p=cur->next;
+				j=i+1;
+				while (p!=nullptr && j<=pos2){
+					if (cur->data>p->data){
+						int tmp=cur->data;
+						cur->data=p->data;
+						p->data=tmp;
+					}
+					j++;
+					p=p->next;
+				}
+				i++;
+				cur=cur->next;
+			}			
 		}
 		
 		
@@ -273,6 +293,10 @@ int main() {
 	myList.addLast(3);
 	myList.addLast(5);
 	myList.addLast(9);
+	myList.addLast(3);
+	myList.addLast(8);
+	myList.addLast(6);
+	myList.addLast(8);
 	myList.display();
 	int x, pos, sel;
 	do {
@@ -344,6 +368,10 @@ int main() {
 			case 14:
 				cout<<"Sort in descending order"<<endl;
 				myList.sortDesc();
+				myList.display(); break;
+			case 15:
+				cout<<"Sort in range"<<endl;
+				myList.sortInRangeAsc(2,7);
 				myList.display(); break;
 			case 0:
 				cout<<"Bye bye"<<endl; break;
