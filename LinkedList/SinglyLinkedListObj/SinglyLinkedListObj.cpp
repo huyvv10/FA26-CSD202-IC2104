@@ -12,8 +12,16 @@ class Car{
 		Car(): id(0), name(""), price(0.0) {}
 		Car(int _id, const string& _name, double _price):
 			id(_id), name (_name), price(_price) {}
+		
 		void showCar(){
 			cout<<"("<<id<<","<<name<<","<<fixed<<setprecision(2)<<price<<")";			
+		}
+			
+		void showCar2(){
+			cout<<left<<
+				setw(5)<<id<<
+				setw(20)<<name<<
+				right<<setw(10)<<fixed<<setprecision(2)<<price<<endl;			
 		}	
 };
 
@@ -51,9 +59,24 @@ class SinglyLinkedList{
 		}
 		
 		void display(){
-			Node *cur=head;
+			Node *cur=head;			
 			while (cur!=nullptr){
 				cur->data.showCar();
+				cur=cur->next;
+			}
+		}
+		void display2(){
+			cout<<left<<
+				setw(5)<<"ID"<<
+				setw(20)<<"NAME"<<
+				right<<setw(10)<<"PRICE"<<endl;				
+			cout<<left<<
+				setw(5)<<"--"<<
+				setw(20)<<"----"<<
+				right<<setw(10)<<"-----"<<endl;				
+			Node *cur=head;			
+			while (cur!=nullptr){
+				cur->data.showCar2();
 				cur=cur->next;
 			}
 		}
@@ -65,6 +88,6 @@ int main(){
 	myList.addFirst(Car(2,"Kia morning xls", 25000.5));
 	myList.addFirst(Car(3,"Vinfast VF9", 75000));
 	myList.addFirst(Car(4,"Toyota Vios", 27000));
-	myList.display();
+	myList.display2();
 	return 0;
 }
